@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <form [formGroup]="studentForm" class="border border-info p-5 mt-5 w-40">
+    <button
+      type="button"
+      class="btn btn-sm btn-primary mt-4"
+      (click)="addStudent()"
+    >
+      Add new Student <span> + </span>
+    </button>
+    <div formArrayName="studentList">
+      <div
+        *ngFor="let student of studentListArray().controls; let i = index"
+        class="border border-dark my-2 p-5"
+      >
+        <div formGroupName="i">
+          <input
+            type="text"
+            name=""
+            id=""
+            formControlName="student_name"
+            placeholder="Student's name"
+          />
+          <input
+            type="text"
+            name=""
+            id=""
+            formControlName="student_class"
+            placeholder="Student's class"
+          />
+          <input
+            type="text"
+            name=""
+            id=""
+            formControlName="student_age"
+            placeholder="Student's age"
+          />
+          <!-- *ngIf="studentListArray().length > 1" -->
+          <button
+            type="button"
+            class="btn btn-sm btn-danger ms-1"
+            (click)="removeStudent(i)"
+          >
+            Remove Student
+          </button>
+          <div [formGroup]="subjectsFormGroup(i)">
+            <div formArrayName="studentSubjectArray">
+              <div
+                *ngFor="
+                  let studentSub of subjectsArray(i).controls;
+                  let j = index
+                "
+              >
+                <div [formGroup]="subjectsFormGroup(i)">
+                  <input
+                    type="text"
+                    name=""
+                    formControlName="subject"
+                    id=""
+                    placeholder="Subject"
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    formControlName="marks"
+                    id=""
+                    placeholder="Marks"
+                  />
+                  <!-- *ngIf="subjectsArray(i).length > 1" -->
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger ms-1"
+                    (click)="removeNewSubject(i, j)"
+                  >
+                    Remove Subject
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm btn-warning mt-1"
+            (click)="addNewSubject(i)"
+          >
+            Add Subject
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-sm btn-success mt-4 ms-2">
+      Submit
+    </button>
+  </form>
+</div>
